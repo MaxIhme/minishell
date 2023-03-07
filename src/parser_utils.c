@@ -98,8 +98,8 @@ int	found_save_executable(t_parse_lexer *pl, t_info *info, char *act_input_lexer
 			info->groups[pl->act_group].path = path_to_executable; // and needs to be the first arg
 			info->groups[pl->act_group].arguments[0] = act_input_lexer_str; // and needs to be the first arg
 		}
-		else
-			pl->is_exe = -1;
+		//else
+		//	pl->is_exe = -1;
 		return (pl->is_exe);
 	}
 	// printf("%p\n", act_input_lexer_str);	// prints out storage adress

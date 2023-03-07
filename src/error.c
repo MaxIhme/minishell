@@ -6,15 +6,17 @@
  */
 int	parser_error_check(t_info *info, t_parse_lexer *pl, int i)
 {
-	if (!strncmp(info->input_lexer[0], "|", 2))
+	if (!strncmp(info->input_lexer[0], "|", 2))			// global variable 2 for exit status
 	{
+		g_exit_status = 2;
 		input_message(PIPE_ERROR_1, 0);
 		return (0);
 	}
-	if (!strncmp(info->input_lexer[0], " ", 1))
+	if (!strncmp(info->input_lexer[0], " ", 1))			// global variable 2 for exit status
 	{
 		if (!strncmp(info->input_lexer[++i], "|", 2))
 			{
+				g_exit_status = 2;
 				input_message(PIPE_ERROR_1, 0);
 				return (0);
 			}
@@ -22,24 +24,25 @@ int	parser_error_check(t_info *info, t_parse_lexer *pl, int i)
 	}
 	if (pl->cat == PIPE && info->input_lexer[++i])
 	{
-		if(!strncmp(info->input_lexer[i], "|", 2))
+		if(!strncmp(info->input_lexer[i], "|", 2))		// global variable 3 for exit status
 		{
+			g_exit_status = 3;
 			input_message(PIPE_ERROR_2, 0);
 			return (0);
 		}
-		printf("i2 %d\n", i);
-		if (!strncmp(info->input_lexer[i], " ", 1) && !strncmp(info->input_lexer[++i], "|", 2))
+		if (!strncmp(info->input_lexer[i], " ", 1) && !strncmp(info->input_lexer[++i], "|", 2))	// global variable 2 for exit status
 		{
+			g_exit_status = 2;
 			input_message(PIPE_ERROR_1, 0);
 			return (0);
 		}		
 	}
-	if (pl->is_exe == -1)
+	/*if (pl->is_exe == -1)
 	{
 		g_exit_status = 127;
 		input_message(STR_WRITE_ERROR, 0);
 		return (0);
-	}
+	}*/
 	return (1);
 }
 
