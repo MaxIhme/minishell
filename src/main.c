@@ -68,15 +68,11 @@ int	main(int argc, char **argv, char **envp)
 			write(1, "\n", 1);
 			clean_up(CTRL_D_PRESSED, info); // ATTENTION, hand over info somehow !!!
 		}
-		if (!parser(info))
-		{
-			clean_up(CLEAN_UP_FOR_NEW_PROMPT, info);  // extract clean_up_path_before_executable
-			continue;
-		}
+		parser(info);
 		executer(info->groups);
 		//ft_export(info->groups[0].arguments); // for testing
 		// ft_unset(info->groups[0].arguments); // for testing
-		clean_up(CLEAN_UP_FOR_NEW_PROMPT, info);
+		clean_up(CLEAN_UP_FOR_NEW_PROMPT, info); // extract clean_up_path_before_executable
 	}
 	//clean_up(CLEAN_UP_REST_BEFORE_EXIT, info);
 	return (0);

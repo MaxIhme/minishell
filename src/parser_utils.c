@@ -89,7 +89,7 @@ int	found_save_executable(t_parse_lexer *pl, t_info *info, char *act_input_lexer
 		if (is_builtin(act_input_lexer_str))
 		{
 			info->groups[pl->act_group].builtin = is_builtin(act_input_lexer_str);
-			info->groups[pl->act_group].arguments[0] = act_input_lexer_str;
+			info->groups[pl->act_group].arguments[0] = act_input_lexer_str;  // hier seg fault wenn pipe first
 			free(path_to_executable);
 			path_to_executable = NULL;
 		}

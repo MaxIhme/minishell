@@ -45,12 +45,28 @@ int	parser_error_check(t_info *info, t_parse_lexer *pl, int i)
 
 int	executer_error_check(t_info *info, t_group *groups)
 {
-	(void) info;
-	if (groups[0].redir_in == REDIR_INPUT)
+	(void) groups;
+	
+	if (!strncmp(info->input_lexer[0], "|", 2))
 	{
-			//input_message(REDIRECT_ERROR_1, 0);
-			//return (0);
+		input_message(PIPE_ERROR_1, 0);
+		return (0);
 	}
+	if (!strncmp(info->input_lexer[0], " ", 1))
+	{
+		if (!strncmp(info->input_lexer[1], "|", 2))
+			{
+				input_message(PIPE_ERROR_1, 0);
+				return (0);
+			}
+		return (1);
+	}
+
+	/*if (groups[0].redir_in == REDIR_INPUT)
+	{
+			input_message(REDIRECT_ERROR_1, 0);
+			return (0);
+	}*/
 	return (1);
 }
 
