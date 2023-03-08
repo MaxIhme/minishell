@@ -82,7 +82,6 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 			printf("exit status from last prompt = %d", g_exit_status);
-		g_exit_status = 0;
 		if (!(info->prompt = readline("test> "))) // test ersetzen durch "benutzer@machine Ordner % "
 		{
 			write(1, "\n", 1);

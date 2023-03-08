@@ -59,7 +59,8 @@ l: all
 	leaks --atExit -- ./$(NAME)
 
 vg: re
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=.ignore_readline.supp ./$(NAME)
+# valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=.ignore_readline.supp ./$(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=.ignore_readline ./$(NAME)
 
 start: re
 	./$(NAME)

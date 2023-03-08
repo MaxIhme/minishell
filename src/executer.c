@@ -214,14 +214,20 @@ void	executer(t_group	*group)
 	i = -1;
 	print_groups(group, group->info);
 	//ft_env(group->info); //for testing
-	while (++i < group->info->num_groups)
+	while (++i < group->info->num_groups) //sadfdsa | cat infile | cat
 	{
+		g_exit_status = 0;
 		// if (!executer_error_check(group->info, group))
 		// 	break;
 		if (!group->builtin && !group->path)
 		{
-			g_exit_status = 127;
-			group++;
+			input_message(STR_WRITE_ERROR, 0);
+			g_exit_status = 127; 
+			if (group->pipe_out)
+				replace_pipe_in_next_group(group, 0);
+			//mabe do access check also if nessecary?
+			if (i < group->info->num_groups - 1)
+				group++;
 			continue ;
 		}
 		if (!check_access_infile_outfile(group))
