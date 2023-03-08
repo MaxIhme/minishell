@@ -19,6 +19,7 @@ static void	ft_fill_array(char const *s, char c, char **newstrings)
 char	**ft_one_split(char const *s, char c)
 {
 	char			**newstrings;
+
 	newstrings = ft_calloc(3, sizeof(char *));
 	if (!s || !newstrings)
 		return (NULL);

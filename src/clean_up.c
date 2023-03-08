@@ -62,6 +62,7 @@ void clean_up_env(t_info *info)
 		while (env_[i][++j])
 		{
 			free(env_[i][j]);
+			env_[i][j] = NULL;
 		}
 		free(env_[i]);
 		env_[i] = NULL;
@@ -101,6 +102,7 @@ void clean_up_arguments(t_info *info)
 		free(info->groups[i].arguments);
 		info->groups[i].arguments = NULL;
 	}
+	free(info->groups->arguments);
 }
 
 void	clean_up_path_to_executable(t_info *info)
@@ -127,13 +129,14 @@ void	clean_up(int clean_up_code, t_info *info)
 		clean_up(CLEAN_UP_FOR_NEW_PROMPT, info);
 		clean_up(CLEAN_UP_REST_BEFORE_EXIT, info);
 		exit(0);
-	} 
+	}
 	if (clean_up_code == ERR_MALLOC_INIT_GROUPS)
 	{
 		clean_up_group_structs(info);
 	}
 	if (clean_up_code == CLEAN_UP_REST_BEFORE_EXIT) //should we use rrl_clear_history here to free history? maybe we can check with valgrind? please correct me if i dont understand (nick)
 	{
+		clear_history();
 		clean_up_env(info);
 		clean_up_paths(info);
 		clean_up_info_struct(info);

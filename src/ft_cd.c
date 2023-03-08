@@ -114,7 +114,7 @@ void	ft_cd(char **args, t_info *info)
 	{
 		error(ERR_CD_NO_DIRECTORY, info);
 		free (absolute_path);
-		return;
+		return ;
 	}
 	buf = getcwd(NULL, 0);
 	set_env_value("OLDPWD", buf, info);

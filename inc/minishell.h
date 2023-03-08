@@ -15,6 +15,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <termios.h>
 
 //*********************************************************//
 //**                FLAGS                               **//
@@ -109,14 +110,13 @@
  * like this while(group[i]) -> has to be done like this
  * while(++i < info->num_groups) don't know why.
  */
-
 typedef struct s_info
 {
 	char			*prompt;
 	char			**input_lexer;
 	char			***env;
 	char			**paths;
-	char			*root_cmd;
+	// char			*root_cmd;
 	int				nb_root_cmd;
 	int				num_groups;
 	struct s_group	*groups;
@@ -227,6 +227,9 @@ void	executer(t_group	*group);
 char	*value_of_variable_from_env(char ***env, char *var, int len);
 int		expand_variables(char	**array, char ***env, t_info *info);
 
+//**** ft_pwd.c ***//
+void	ft_pwd(t_group *group);
+
 //**** ft_cd.c ****//
 
 void	ft_cd(char **args, t_info *info);
@@ -258,7 +261,6 @@ char	**ft_split_lexer(char *str, t_info *info);
 int	ft_unset(char **args, t_info *info);
 
 //**** init.c ****//
-
 t_info	*init(char **envp);
 char	**ft_array_args(char *str, t_info *info);
 t_group *init_groups(t_info *info);
@@ -287,6 +289,8 @@ void	test_env_vars(t_info *info);
 
 void	p2d(char **ptr);
 void	print_groups(t_group *groups, t_info *info);
+
+void	remove_ctrl_c_feed(void);
 
 extern int	g_exit_status;
 
