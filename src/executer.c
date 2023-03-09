@@ -208,6 +208,8 @@ void	builtins_with_output(t_group *group)
 		ft_env(group->info);
 	else if (group->builtin == CMD_PWD)
 		ft_pwd(group);
+	else if (group->builtin == CMD_CLEAR)
+		ft_clear();
 
 
 	exit(0); //changed from _Exit(3);
@@ -266,6 +268,8 @@ void	builtin_no_piping(t_group *group)
 		ft_exit(group->info);
 	else if (group->builtin == CMD_CD)
 		ft_cd(group->arguments, group->info);
+	else if (group->builtin == CMD_CLEAR)
+		ft_clear();
 	return ;
 }
 
@@ -312,7 +316,7 @@ void	executer(t_group	*group)
 			make_pipe(group);
 		if (!group->pipe_out && group->info->num_groups == 1)
 			if (group->builtin == CMD_EXPORT || group->builtin == CMD_UNSET \
-			|| group->builtin == CMD_EXIT || group->builtin == CMD_CD)
+			|| group->builtin == CMD_EXIT || group->builtin == CMD_CD || group->builtin == CMD_CLEAR)
 				builtin_no_piping(group);
 		if (group->path || group->builtin || group->redir_out)
 			fork_and_execve(group);

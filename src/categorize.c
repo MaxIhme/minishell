@@ -39,6 +39,8 @@ int categorize(char *str)
 		return (CMD_UNSET);
 	if (!ft_strncmp(str, "env", 4))
 		return (CMD_ENV);
+	if (!ft_strncmp(str, "clear", 5))
+		return (CMD_CLEAR);
 	if (!ft_strncmp(str, "-", 1))
 		return (FLAG);
 	if (only_separator_in_string(str))

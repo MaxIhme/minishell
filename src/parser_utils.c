@@ -72,6 +72,8 @@ int	is_builtin(char *str)
 		return (CMD_UNSET);
 	if (!ft_strncmp(str, "env", 4))
 		return (CMD_ENV);
+	if (!ft_strncmp(str, "clear", 5))
+		return (CMD_CLEAR);
 	return (0);
 }
 

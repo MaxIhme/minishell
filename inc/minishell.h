@@ -43,6 +43,7 @@
 # define CMD_EXPORT 35
 # define CMD_UNSET 36
 # define CMD_ENV 37
+# define CMD_CLEAR 38
 # define BUILTIN_END 40
 
 //**                ERROR FLAGS                          **//
@@ -251,6 +252,9 @@ void	ft_env(t_info *info);
 int	num_env_args(char ***args);
 int	ft_export(char **args, t_info *info);
 
+
+//**** ft_clear.c ****//
+void	ft_clear(void);
 //**** ft_split_lexer.c ****//
 
 int		sep(char c);

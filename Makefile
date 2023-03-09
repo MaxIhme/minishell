@@ -33,6 +33,7 @@ SRCS =	src/main.c \
 		src/expand_variables.c \
 		src/ft_cd.c \
 		src/ft_pwd.c \
+		src/ft_clear.c \
 ## Substitutes all the SRC_DIR to SRCS --> A short alternative to $(SRCS)/%.c = $(OBJS)/%.o
 ## Also used dir which extracts the SRC_DIR compiled objects to obj directory
 ## might need to look at if we actually need both readline or not
