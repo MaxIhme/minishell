@@ -5,8 +5,16 @@ void	ft_env(t_info *info)
 	int	i;
 	int	j;
 	int	k;
+	int argc;
 
 	i = -1;
+	argc = 0;
+	while (info->groups->arguments[argc])
+		argc++;
+	if (argc > 1) {
+		printf("env: %s No such file or directory\n", info->groups->arguments[1]);
+		return;
+	}
 	while (info->env[++i])
 	{
 		j = -1;
