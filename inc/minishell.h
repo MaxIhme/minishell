@@ -206,6 +206,7 @@ int	executer_error_check(t_info *info, t_group *groups);
 //**** clean_up.c ****//
 
 void	clean_up_group_structs(t_info *info);
+void	clean_up_paths(t_info *info);
 void	clean_up_prompt();
 void	clean_up_lexer(t_info *info);
 void	clean_up(int clean_up_code, t_info *info);
@@ -272,7 +273,7 @@ void	make_env(char **envp, t_info *info);
 
 //**** parser_utils.c ****//
 
-int		found_save_redirect(t_parse_lexer *pl, t_info *info, char *act_input_lexer_str);
+int		found_save_redirect(t_parse_lexer *pl, t_info *info, char *act_input_lexer_str, int i);
 int		found_save_executable(t_parse_lexer *pl, t_info *info, char *act_input_lexer_str, int i);
 void	found_save_arguments(t_parse_lexer *pl, t_info *info, int i);
 void	pipe_detector(t_parse_lexer *pl, t_info *info);

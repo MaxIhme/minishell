@@ -19,12 +19,14 @@ int	is_redirect(int num)
  * else returns 0
  * it saves the redirect in the struct groups
  */
-int	found_save_redirect(t_parse_lexer *pl, t_info *info, char *act_input_lexer_str) // in init set everything to NULL or 0
+int	found_save_redirect(t_parse_lexer *pl, t_info *info, char *act_input_lexer_str, int i) // in init set everything to NULL or 0
 {
 	int ret;
 	static int before_cat = 0;
 
 	ret = 0;
+	if (pl->act_group == 0 && i == 0)
+		before_cat = 0;
 	if (pl->cat == REDIR_INPUT_APPEND || pl->cat == REDIR_INPUT)
 	{
 		ret = 1;
@@ -129,7 +131,7 @@ void	found_save_arguments(t_parse_lexer *pl, t_info *info, int i)
 			//printf("str: %s\n", info->input_lexer[i]);
 			pl->cat = categorize(info->input_lexer[i]); // pl->cat steht wenn wir zurück gehen immernoch auf der PIPE oder so wichtig?
 			//printf("cat %d\n", pl->cat);
-			pl->is_red = found_save_redirect(pl, info, info->input_lexer[i]);
+			pl->is_red = found_save_redirect(pl, info, info->input_lexer[i], i);
 			if (pl->cat == SEPARATOR || pl->is_red)
 				continue;
 			else if (pl->cat == PIPE)

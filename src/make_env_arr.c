@@ -23,3 +23,15 @@ void	make_env(char **envp, t_info *info)
 	}
 }
 
+/**
+ * @brief 
+ * set path ... -> (see if works with one path, more and no paths and emptysapces)
+ * in export: call renew_paths():-> 
+ * 	free old malloc
+ * 	split new paths
+ * 
+ * unset path ... -> free old memory (but maybe leave a "" malloced -> for that see check_if_cmd and cleanup)
+ * 
+ * handle info->paths == NULL
+ * 
+ */

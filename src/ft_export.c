@@ -165,6 +165,15 @@ void	replace_cont_of_var(char *arg, char ***env)
 	free (buf);
 }
 
+void export_with_no_args(t_info *info)
+{
+	int i;
+
+	i = -1;
+	while (info->env[++i])
+		printf("declare -x %s=\"%s\"\n", info->env[i][0], info->env[i][1]);
+}
+
 /**
  * @brief give it a 2D char array -> arguments 
  * in the form of:{"export", "some_variable_name=some_content", "2ndvar=second_content", NULL}
@@ -190,16 +199,6 @@ void	replace_cont_of_var(char *arg, char ***env)
  * 		
  * @return 0
  */
-
-void export_with_no_args(t_info *info)
-{
-	int i;
-
-	i = -1;
-	while (info->env[++i])
-		printf("declare -x %s=\"%s\"\n", info->env[i][0], info->env[i][1]);
-}
-
 int	ft_export(char **args, t_info *info)
 {
 	int	num_new_args;
@@ -244,6 +243,8 @@ int	ft_export(char **args, t_info *info)
 			return (2);
 		populate_var(env_buf[i][0], *args);
 		populate_cont(env_buf[i][1], *args);
+		if (!ft_strncmp(*args, "PATH=", 5))
+			info->paths = ft_split(*args + 5, ':');
 		args++;
 		i++;
 	}

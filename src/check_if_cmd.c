@@ -44,12 +44,21 @@ char	*is_an_executable(char *cmd, t_info *t_info)
 	char	*path_to_executable;
 
 	i = -1;
+	if (!t_info->paths)
+	{
+		if (!access(cmd, X_OK))
+		{
+			path_to_executable = ft_strdup(cmd);
+			return (path_to_executable);
+		}
+		return (NULL);
+	}
 	while (t_info->paths[++i])
 	{
 		slash_added = add_slash(cmd, t_info->paths[i]);
 		slash_not_added = ft_strjoin(slash_added, cmd);
 		path_to_executable = check_and_return_path(slash_added, \
-		slash_not_added, cmd);
+		slash_not_added, cmd);   //leak!!! stdup inside
 		if (path_to_executable)
 		{
 			t_info->nb_root_cmd++;

@@ -56,7 +56,7 @@ int	parser(t_info *info) // after lexer.. groups and make space for ptr to group
 		//if (!parser_error_check(info, pl, i))
 		//	return (0);
 
-		pl-> is_red = found_save_redirect(pl, info, info->input_lexer[i]);
+		pl-> is_red = found_save_redirect(pl, info, info->input_lexer[i], i);
 	
 		pl->is_exe = found_save_executable(pl, info, info->input_lexer[i], i);
 		// if (pl->is_exe == -1)
@@ -77,7 +77,7 @@ int	parser(t_info *info) // after lexer.. groups and make space for ptr to group
 	}
 	// p2d(info->paths);
 	
-	//print_groups(info->groups, info); // möglich <> ??
+	// print_groups(info->groups, info); // möglich <> ??
 	// ft_unset(info->groups[0].arguments, info);
 	
 	// ft_echo(info->groups[0].arguments, info->groups[0].pipe_out);
