@@ -36,6 +36,26 @@ char	*add_slash(char *cmd, char *path)
  * @return NULL if not an executable, char ptr to fully path f.e. "..../cat"
  * to the executable. You have to free the space!!
  */
+
+char	*check_if_access_in_parser(char *cmd, t_info *t_info, char	*path_to_executable)
+{
+	if (!t_info->paths)
+	{
+		if (!access(cmd, X_OK))
+		{
+			path_to_executable = ft_strdup(cmd);
+			return (path_to_executable);
+		}
+	}
+	return (NULL);
+}
+
+void	free_slash(char *slash_added, char *slash_not_added)
+{
+	free(slash_added);
+	free(slash_not_added);
+}
+
 char	*is_an_executable(char *cmd, t_info *t_info)
 {
 	int		i;
@@ -44,15 +64,9 @@ char	*is_an_executable(char *cmd, t_info *t_info)
 	char	*path_to_executable;
 
 	i = -1;
-	if (!t_info->paths)
-	{
-		if (!access(cmd, X_OK))
-		{
-			path_to_executable = ft_strdup(cmd);
-			return (path_to_executable);
-		}
-		return (NULL);
-	}
+	path_to_executable = NULL;
+	path_to_executable = check_if_access_in_parser(cmd, \
+	t_info, path_to_executable);
 	while (t_info->paths[++i])
 	{
 		slash_added = add_slash(cmd, t_info->paths[i]);
@@ -62,12 +76,10 @@ char	*is_an_executable(char *cmd, t_info *t_info)
 		if (path_to_executable)
 		{
 			t_info->nb_root_cmd++;
-			free(slash_added);
-			free(slash_not_added);
+			free_slash(slash_added, slash_not_added);
 			return (path_to_executable);
 		}
-		free(slash_added);
-		free(slash_not_added);
+		free_slash(slash_added, slash_not_added);
 	}
 	return (NULL);
 }

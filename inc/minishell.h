@@ -117,7 +117,6 @@ typedef struct s_info
 	char			**input_lexer;
 	char			***env;
 	char			**paths;
-	// char			*root_cmd;
 	int				nb_root_cmd;
 	int				num_groups;
 	struct s_group	*groups;
@@ -159,9 +158,9 @@ typedef struct s_group
 	char	*path;
 	int		builtin;
 	int		redir_in;
-	char 	*redir_infile;
+	char	*redir_infile;
 	int		redir_out;
-	char 	*redir_outfile;
+	char	*redir_outfile;
 	int		pipe_in;
 	int		pipe_out;
 	int		pipe_fd[2];
@@ -193,7 +192,7 @@ typedef struct s_parse_lexer
 
 //**** categorize.c ****//
 
-int categorize(char *str);
+int		categorize(char *str);
 
 //**** check_if_cmd.c ****//
 
@@ -201,24 +200,24 @@ char	*is_an_executable(char *cmd, t_info *t_info);
 
 //**** input_check.c ****//
 
-int	parser_error_check(t_info *info, t_parse_lexer *pl, int i);
-int	executer_error_check(t_info *info, t_group *groups);
+int		parser_error_check(t_info *info, t_parse_lexer *pl, int i);
+int		executer_error_check(t_info *info, t_group *groups);
 
 //**** clean_up.c ****//
 
 void	clean_up_group_structs(t_info *info);
 void	clean_up_paths(t_info *info);
-void	clean_up_prompt();
+void	clean_up_prompt(t_info *info);
 void	clean_up_lexer(t_info *info);
 void	clean_up(int clean_up_code, t_info *info);
 
 //**** ft_message.c ****//
 
-int input_message(char *str, int exit_no);
+int		input_message(char *str, int exit_no);
 
 //**** error.c ****//
 
-int	error(int err, t_info *info);
+int		error(int err, t_info *info);
 
 //**** executer.c ****//
 
@@ -249,8 +248,8 @@ void	ft_env(t_info *info);
 
 //**** ft_export.c ****//
 
-int	num_env_args(char ***args);
-int	ft_export(char **args, t_info *info);
+int		num_env_args(char ***args);
+int		ft_export(char **args, t_info *info);
 
 
 //**** ft_clear.c ****//
@@ -263,12 +262,12 @@ char	**ft_split_lexer(char *str, t_info *info);
 
 //**** ft_unset.c ****//
 
-int	ft_unset(char **args, t_info *info);
+int		ft_unset(char **args, t_info *info);
 
 //**** init.c ****//
 t_info	*init(char **envp);
 char	**ft_array_args(char *str, t_info *info);
-t_group *init_groups(t_info *info);
+t_group	*init_groups(t_info *info);
 
 
 //**** make_env_arr.c ****//
@@ -277,8 +276,10 @@ void	make_env(char **envp, t_info *info);
 
 //**** parser_utils.c ****//
 
-int		found_save_redirect(t_parse_lexer *pl, t_info *info, char *act_input_lexer_str, int i);
-int		found_save_executable(t_parse_lexer *pl, t_info *info, char *act_input_lexer_str, int i);
+int		found_save_redirect(t_parse_lexer *pl, t_info *info, \
+char *act_input_lexer_str, int i);
+int		found_save_executable(t_parse_lexer *pl, t_info *info, \
+char *act_input_lexer_str, int i);
 void	found_save_arguments(t_parse_lexer *pl, t_info *info, int i);
 void	pipe_detector(t_parse_lexer *pl, t_info *info);
 int		count_groups(t_info *info);
@@ -288,7 +289,33 @@ void	delete_quotationmarks(char	**array);
 
 int		parser(t_info *info);
 
-void	test_env_vars(t_info *info);
+//**** redirect_and_pipe_helpers.c ****//
+
+int		redir_in(t_group *group);
+void	redir_out(t_group *group);
+void	make_pipe(t_group *group);
+void	replace_pipe_in_next_group(t_group *group, int new_pipe_in);
+int		next_have_pipe_out(t_group *group);
+
+//**** helpers_fds_builtin.c ****//
+
+void	dup_fd(int fd_new, int fd_old, t_info *info);
+void	closing_fds(t_group *group);
+int		check_access_infile_outfile(t_group *group);
+void	builtins_with_output(t_group *group);
+void	builtin_no_piping(t_group *group);
+
+//**** heredoc.c ****//
+int		heredoc_sub(t_group *group, char *str[3], int fd[2]);
+int		heredoc(t_group *group);
+
+//**** helpers_fds.c ****//
+int		check_access_infile_outfile(t_group *group);
+void	dup_fd(int fd_new, int fd_old, t_info *info);
+void	closing_fds(t_group *group);
+void	handle_redir_and_dup(t_group *group);
+
+
 
 //**** tests.c ****//
 
